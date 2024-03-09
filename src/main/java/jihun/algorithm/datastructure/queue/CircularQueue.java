@@ -32,8 +32,8 @@ public class CircularQueue {
         int[] newQueue = new int[newCapacity];
 
         /*
-            기존 큐에 존재하던 데이터를 복사한다.
-            새로운 큐에는 front가 0이고 첫 번째 인덱스부터 값을 세팅한다.
+        기존 큐에 존재하던 데이터를 복사한다.
+        새로운 큐에는 front가 0이고 첫 번째 인덱스부터 값을 세팅한다.
          */
         for (int i = 1, j = front + 1; i <= size; i++, j++) {
             newQueue[i] = queue[j % queue.length];
@@ -44,8 +44,8 @@ public class CircularQueue {
         front = 0;
 
         /*
-            용량이 더 커진 경우에는 1자로 데이터가 나열되었기 때문에 rear = size
-            용량이 더 작아진 경우에는 데이터가 없어서 사이즈를 줄인 것.
+        용량이 더 커진 경우에는 1자로 데이터가 나열되었기 때문에 rear = size
+        용량이 더 작아진 경우에는 데이터가 없어서 사이즈를 줄인 것.
          */
         rear = size;
     }
