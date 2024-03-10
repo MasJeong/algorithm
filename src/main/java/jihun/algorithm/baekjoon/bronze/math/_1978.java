@@ -23,15 +23,15 @@ public class _1978 {
             if(prime < 2) continue;
 
             // 2부터 자신의 수까지 나머지가 0이 되는 수가 없다면 소수
-            int cnt = 0;
+            boolean isPrime = true;
             for(int i = 2; i < prime; i++) {
                 if(prime % i == 0) {
-                    cnt++;
+                    isPrime = false;
                     break;
                 }
             }
 
-            if(cnt == 0) {
+            if(isPrime) {
                 primeCnt++;
             }
         }
