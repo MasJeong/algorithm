@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
  */
 public class _10872 {
 
-    private static int factorial(int num) {
+    private static long factorial(long num) {
         if(num == 0 || num == 1) return 1;
 
         return num * factorial(num - 1);
@@ -18,7 +18,7 @@ public class _10872 {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        int result = 0;
+        long result = 0;
 
         result += factorial(n);
 
