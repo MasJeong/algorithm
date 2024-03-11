@@ -14,6 +14,7 @@ public class _1676_anotherSolving {
         int n = Integer.parseInt(br.readLine());
         int count = 0;
 
+        // 소인수 분해값들이 2의 개수가 5의 개수보다 많기 때문에 5의 개수만 검사한다.
         while (n >= 5) {
             count += n / 5;
             n /= 5;
