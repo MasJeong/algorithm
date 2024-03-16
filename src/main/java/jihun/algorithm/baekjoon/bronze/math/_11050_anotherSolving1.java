@@ -10,22 +10,21 @@ import java.util.StringTokenizer;
  */
 public class _11050_anotherSolving1 {
 
-    private static int fibonacci(int num) {
+    private static int factorial(int num) {
         if (num == 0) return 1;
 
-        return num * fibonacci(num - 1);
+        return num * factorial(num - 1);
     }
 
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
 
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
 
         // nCr = n! / (n - r)! * r!
-        System.out.println(fibonacci(n) / (fibonacci(n - k) * fibonacci(k)));
+        System.out.println(factorial(n) / (factorial(n - k) * factorial(k)));
         br.close();
     }
 
