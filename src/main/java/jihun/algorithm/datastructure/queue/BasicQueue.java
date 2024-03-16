@@ -16,12 +16,12 @@ public class BasicQueue {
     private static int rear = -1;
     private static int size = 0;
 
-    private static void push(int[] queue, int val) {
+    private static void offer(int[] queue, int val) {
         queue[++rear] = val;
         size++;
     }
 
-    private static int pop(int[] queue) {
+    private static int poll(int[] queue) {
         // 데이터 없는 경우
         if(front > rear) {
             return -1;
@@ -73,10 +73,10 @@ public class BasicQueue {
             String str = st.nextToken();
             switch (str) {
                 case "push":
-                    push(queue, Integer.parseInt(st.nextToken()));
+                    offer(queue, Integer.parseInt(st.nextToken()));
                     break;
                 case "pop":
-                    sb.append(pop(queue)).append("\n");
+                    sb.append(poll(queue)).append("\n");
                     break;
                 case "size":
                     sb.append(size()).append("\n");
