@@ -1,7 +1,5 @@
 package jihun.algorithm.baekjoon.silver.datastructure;
 
-import lombok.AllArgsConstructor;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,21 +12,32 @@ import java.util.StringTokenizer;
  */
 public class _1966 {
 
-    @AllArgsConstructor
-    static class Printer {
+    private static class Printer {
         int index;
         int priority;
+
+        public Printer(int index, int priority) {
+            this.index = index;
+            this.priority = priority;
+        }
     }
 
-    static class PrinterComparator implements Comparator<Printer> {
+    private static class PrinterComparator implements Comparator<Printer> {
         @Override
         public int compare(Printer o1, Printer o2) {
-            // 우선순위가 동일한 경우 인덱스가 높은 게 먼저 나온다.
-            if (o1.priority == o2.priority) {
-                return o2.index - o1.index;
+            /*
+            o1 - o2 > 0
+            비교는 첫 번째 인자를 기준으로
+            위처럼 양수의 경우 o1이 뒤로 감
+            음수의 경우 o1이 앞으로 감
+             */
+            if (o1.priority > o2.priority) {
+                return -1;
+            } else if (o1.priority < o2.priority) {
+                return 1;
+            } else {
+                return 0;
             }
-
-            return o2.priority - o1.priority;
         }
     }
 
@@ -37,10 +46,8 @@ public class _1966 {
         StringBuilder sb = new StringBuilder();
         StringTokenizer st;
 
-        int t = Integer.parseInt(br.readLine());
-
-        // 클래스 객체에 대한 우선순위 기준 제공
         final PriorityQueue<Printer> pq = new PriorityQueue<>(100, new PrinterComparator());
+        int t = Integer.parseInt(br.readLine());
 
         while (t-- > 0) {
             st = new StringTokenizer(br.readLine());
@@ -51,10 +58,9 @@ public class _1966 {
 
             // 큐 원소 삽입
             for (int i = 0; i < n; i++) {
-                pq.offer(new Printer(0, Integer.parseInt(st.nextToken())));
+                pq.offer(new Printer(i, Integer.parseInt(st.nextToken())));
             }
 
-            // TODO 작업중
             for (int i = 1; i <= n; i++) {
                 if (pq.poll().index == m) {
                     sb.append(i).append("\n");
@@ -62,6 +68,7 @@ public class _1966 {
                 }
             }
 
+            // 우선순위 큐 초기화
             pq.clear();
         }
 
