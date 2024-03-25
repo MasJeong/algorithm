@@ -16,19 +16,19 @@ public class _1966 {
 
     @AllArgsConstructor
     static class Printer {
-        int pointer;
+        int index;
         int priority;
     }
 
-    // 클래스 객체의 우선순위를 위한 클래스
     static class PrinterComparator implements Comparator<Printer> {
         @Override
         public int compare(Printer o1, Printer o2) {
-            if (o1.priority != o2.priority) {
-                return o2.priority - o1.priority;
+            // 우선순위가 동일한 경우 인덱스가 높은 게 먼저 나온다.
+            if (o1.priority == o2.priority) {
+                return o2.index - o1.index;
             }
 
-            return 0;
+            return o2.priority - o1.priority;
         }
     }
 
@@ -49,21 +49,14 @@ public class _1966 {
 
             st = new StringTokenizer(br.readLine());
 
+            // 큐 원소 삽입
             for (int i = 0; i < n; i++) {
-                int priority = Integer.parseInt(st.nextToken());
-
-                if (m == i) {
-                    pq.offer(new Printer(m, priority));
-                } else {
-                    pq.offer(new Printer(0, priority));
-                }
+                pq.offer(new Printer(0, Integer.parseInt(st.nextToken())));
             }
 
+            // TODO 작업중
             for (int i = 1; i <= n; i++) {
-                Printer printer = pq.poll();
-
-                // TODO 작업중
-                if (printer.pointer == m) {
+                if (pq.poll().index == m) {
                     sb.append(i).append("\n");
                     break;
                 }
