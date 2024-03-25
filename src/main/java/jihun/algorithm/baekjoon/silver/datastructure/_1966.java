@@ -3,41 +3,36 @@ package jihun.algorithm.baekjoon.silver.datastructure;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
- * 프린터 큐 - 우선순위 큐
+ * 프린터 큐 - 큐 TODO 재작업
  */
 public class _1966 {
 
-    private static class Printer {
+    private static class Printer implements Comparator<Printer> {
         int index;
         int priority;
+
+        // 우선순위 큐 인스턴스 생성 시 Comparator 세팅을 위한 생성자
+        public Printer() {
+
+        }
 
         public Printer(int index, int priority) {
             this.index = index;
             this.priority = priority;
         }
-    }
 
-    private static class PrinterComparator implements Comparator<Printer> {
         @Override
         public int compare(Printer o1, Printer o2) {
             /*
             o1 - o2 > 0
-            비교는 첫 번째 인자를 기준으로
-            위처럼 양수의 경우 o1이 뒤로 감
+            비교는 첫 번째 인자를 기준으로 함
+            위의 경우 양수의 경우 o1이 뒤로 감
             음수의 경우 o1이 앞으로 감
              */
-            if (o1.priority > o2.priority) {
-                return -1;
-            } else if (o1.priority < o2.priority) {
-                return 1;
-            } else {
-                return 0;
-            }
+            return Integer.compare(o2.priority, o1.priority);
         }
     }
 
@@ -46,10 +41,17 @@ public class _1966 {
         StringBuilder sb = new StringBuilder();
         StringTokenizer st;
 
-        final PriorityQueue<Printer> pq = new PriorityQueue<>(100, new PrinterComparator());
         int t = Integer.parseInt(br.readLine());
 
         while (t-- > 0) {
+
+            /*
+            우선순위 큐는 힙(완전이진트리) 구조
+            완전이진트리: 마지막 레벨을 제외하고 모든 레벨이 채워져 있는 형태
+             */
+            PriorityQueue<Printer> pq = new PriorityQueue<>(100, new Printer());
+            Queue<Printer> queue = new LinkedList<>();
+
             st = new StringTokenizer(br.readLine());
             int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
@@ -58,18 +60,30 @@ public class _1966 {
 
             // 큐 원소 삽입
             for (int i = 0; i < n; i++) {
-                pq.offer(new Printer(i, Integer.parseInt(st.nextToken())));
+                int priority = Integer.parseInt(st.nextToken());
+                queue.offer(new Printer(i, priority));
+                pq.offer(new Printer(i, priority));
             }
 
-            for (int i = 1; i <= n; i++) {
-                if (pq.poll().index == m) {
-                    sb.append(i).append("\n");
-                    break;
+            int count = 1;
+            while (!pq.isEmpty()) {
+                if (pq.peek().priority == queue.peek().priority) {
+                    if (queue.peek().index == m) {
+                        sb.append(count).append("\n");
+                        break;
+                    }
+
+                    // 인쇄
+                    pq.poll();
+                    queue.poll();
+                    count++;
+                } else {
+                    queue.offer(queue.poll());
                 }
             }
 
-            // 우선순위 큐 초기화
             pq.clear();
+            queue.clear();
         }
 
         System.out.println(sb);
