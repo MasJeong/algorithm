@@ -47,7 +47,7 @@ public class _1966 {
 
             /*
             우선순위 큐는 힙(완전이진트리) 구조
-            완전이진트리: 마지막 레벨을 제외하고 모든 레벨이 채워져 있는 형태
+            완전이진트리: 마지막 레벨을 제외하고 모든 자식 노드가 채워져 있는 형태
              */
             PriorityQueue<Printer> pq = new PriorityQueue<>(100, new Printer());
             Queue<Printer> queue = new LinkedList<>();
