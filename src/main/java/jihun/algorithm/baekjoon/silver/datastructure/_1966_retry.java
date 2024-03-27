@@ -3,19 +3,29 @@ package jihun.algorithm.baekjoon.silver.datastructure;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class _1966_retry {
 
-    private static class Printer {
+    private static class Printer implements Comparator<Printer>  {
         int idx;
         int priority;
+
+        // 우선순위 큐 인스턴스 생성 시 Comparator 세팅을 위한 생성자
+        public Printer() {
+
+        }
 
         public Printer(int idx, int priority) {
             this.idx = idx;
             this.priority = priority;
+        }
+
+        @Override
+        public int compare(Printer o1, Printer o2) {
+            return Integer.compare(o2.priority, o1.priority);
         }
     }
 
@@ -27,49 +37,37 @@ public class _1966_retry {
         int t = Integer.parseInt(br.readLine());
 
         while (t-- > 0) {
-            final Queue<Printer> priorityQueue = new LinkedList<>();
+            PriorityQueue<Printer> pq = new PriorityQueue<>(100, new Printer());
 
             st = new StringTokenizer(br.readLine());
             int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
 
             st = new StringTokenizer(br.readLine());
+            int[] arrPriority = new int[n];
 
-            // 원소 삽입
             for (int i = 0; i < n; i++) {
-                priorityQueue.offer(new Printer(i, Integer.parseInt(st.nextToken())));
+                int num = Integer.parseInt(st.nextToken());
+                pq.offer(new Printer(i, num));
+                arrPriority[i] = num;
             }
 
-            // 우선순위 정렬
-            final Printer pollElement = priorityQueue.poll();
+//            for (int i = 0; i < n; i++) {
+//                while (!priorityQueue.isEmpty() &&  priorityQueue.peek().priority < arrPriority[i]) {
+//                    priorityQueue.offer(priorityQueue.poll());
+//                }
+//            }
 
-            /*
-            TODO 이부분 다시 확인하기
-            1 2 3 4
-            2 3 4 1
-            3 4 1 2
-            4 1 2 3
+            for (int i = 0; i < n; i++) {
+//                Printer pr = pq.poll();
 
-            1 3 4 2
-            3 4 2 1
-            4 2 1 3
-            4 2 3 1
-             */
-            int a = n;
-            while (a-- > 0) {
-                while (!priorityQueue.isEmpty() && pollElement.priority < priorityQueue.peek().priority) {
-                    priorityQueue.offer(pollElement);
-                }
-            }
-
-            for (int i = 1; i <= n; i++) {
-                if (priorityQueue.poll().idx == m) {
-                    sb.append(i).append("\n");
+                if (pq.poll().idx == m) {
+                    sb.append(i + 1).append("\n");
                     break;
                 }
             }
 
-            priorityQueue.clear();
+            pq.clear();
         }
 
         System.out.println(sb);
