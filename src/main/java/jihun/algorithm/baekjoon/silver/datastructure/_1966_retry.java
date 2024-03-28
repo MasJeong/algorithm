@@ -3,9 +3,7 @@ package jihun.algorithm.baekjoon.silver.datastructure;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class _1966_retry {
 
@@ -37,37 +35,45 @@ public class _1966_retry {
         int t = Integer.parseInt(br.readLine());
 
         while (t-- > 0) {
+
+            /*
+            우선순위 큐는 힙(완전이진트리) 구조
+            완전이진트리: 마지막 레벨을 제외하고 모든 레벨이 채워져 있는 형태
+             */
             PriorityQueue<Printer> pq = new PriorityQueue<>(100, new Printer());
+            Queue<Printer> queue = new LinkedList<>();
 
             st = new StringTokenizer(br.readLine());
             int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
 
             st = new StringTokenizer(br.readLine());
-            int[] arrPriority = new int[n];
 
             for (int i = 0; i < n; i++) {
                 int num = Integer.parseInt(st.nextToken());
                 pq.offer(new Printer(i, num));
-                arrPriority[i] = num;
+                queue.offer(new Printer(i, num));
             }
 
-//            for (int i = 0; i < n; i++) {
-//                while (!priorityQueue.isEmpty() &&  priorityQueue.peek().priority < arrPriority[i]) {
-//                    priorityQueue.offer(priorityQueue.poll());
-//                }
-//            }
+            int cnt = 0;
 
-            for (int i = 0; i < n; i++) {
-//                Printer pr = pq.poll();
+            while (!queue.isEmpty()) {
+                // 뽑으려는 우선순위가 queue와 일치하지 않으면 뒤로 보낸다.
+                if (queue.peek().priority != pq.peek().priority) {
+                    queue.offer(queue.poll());
+                }
 
-                if (pq.poll().idx == m) {
-                    sb.append(i + 1).append("\n");
-                    break;
+                // 뽑으려는 우선순위가 queue와 일치하면 poll
+                if (queue.peek().priority == pq.peek().priority) {
+                    cnt++;
+                    pq.poll();
+
+                    if (queue.poll().idx == m) {
+                        sb.append(cnt).append("\n");
+                        break;
+                    }
                 }
             }
-
-            pq.clear();
         }
 
         System.out.println(sb);
