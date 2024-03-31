@@ -36,6 +36,13 @@ public class _1966 {
         }
     }
 
+    private static class PrinterComparator implements Comparator<Printer> {
+        @Override
+        public int compare(Printer o1, Printer o2) {
+            return Integer.compare(o2.priority, o1.priority);
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
