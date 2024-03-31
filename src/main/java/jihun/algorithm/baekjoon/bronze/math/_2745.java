@@ -19,7 +19,6 @@ public class _2745 {
         int b = Integer.parseInt(st.nextToken());
         int result = 0;
 
-        //
         for (int i = 0; i < n.length(); i++) {
             // 지수
             int square = n.length() - i - 1;
