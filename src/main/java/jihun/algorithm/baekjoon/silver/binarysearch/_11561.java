@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * 징검다리 - TODO 수학 및 이분탐색
+ * 징검다리 - 수학 및 이분탐색
  * 등차수열의 합 (N * (N+1)) / 2
  */
 public class _11561 {
@@ -20,7 +20,6 @@ public class _11561 {
         while(t-- > 0) {
             long n = Long.parseLong(br.readLine());
 
-            //
             long left = 0;
             long right = Integer.MAX_VALUE;
             long result = 0;
