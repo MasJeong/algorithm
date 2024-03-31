@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 /**
- * 프린터 큐 - 큐 TODO 재작업
+ * 프린터 큐 - 큐
  */
 public class _1966 {
 
