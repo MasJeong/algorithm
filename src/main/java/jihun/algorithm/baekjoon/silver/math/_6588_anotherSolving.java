@@ -11,7 +11,6 @@ public class _6588_anotherSolving {
 
     static final int MAX_LENGTH = 1000001;
     static boolean[] prime = new boolean[MAX_LENGTH];
-    static int[] answer = new int[MAX_LENGTH];
 
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
