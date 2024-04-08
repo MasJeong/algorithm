@@ -18,11 +18,11 @@ public class _2108 {
         final int[] arr = new int[n];
 
         /*
-        정수의 최댓값이 4000이기 때문에 음수처리의 경우 -1이 나오면 4000 + 1.
         최빈값을 구하기 위한 카운팅 배열
+        정수의 최댓값이 4000이기 때문에 음수처리의 경우 -1이 나오면 4001 인덱스에 삽입
          */
         final int[] arrCounting = new int[8001];
-        float sum = 0;
+        double sum = 0;
 
         for (int i = 0; i < n; i++) {
             int input = Integer.parseInt(br.readLine());
@@ -46,28 +46,14 @@ public class _2108 {
         Arrays.sort(arr);
         sb.append(arr[arr.length / 2]).append("\n");
 
-        int max = 0;    // 많이 나타난 횟수
-        int value = 0;  // 가장 많이 나타난 값
-        boolean isEqual = false;    // 동일한 횟수가 나온 경우 true
-        int[] arrMin = new int[8001];  // 최빈값 저장 배열
-
-        // 가장 많이 나타난 값을 찾는다.
+        int max = 1;
+        boolean isEqual = false;
         int idx = 0;
 
-        // 처음 나타난 값의 카운트를 세팅한다.
-        for (int i = arrCounting.length - 1; i >= 0; i--) {
-            if (arrCounting[i] == 0) continue;
+        // TODO 최빈값 구하는 부분 다시 구현해보자
+        int[] arrMax = new int[arrCounting.length];
 
-            int a = arrCounting[i];
-
-            while (a-- > 0) {
-                max++;
-            }
-
-            break;
-        }
-
-        for (int i = arrCounting.length - 1; i >= 0; i--) {
+        for (int i = 0; i < arrCounting.length; i++) {
             if (arrCounting[i] == 0) continue;
 
             int cnt = 0;
@@ -76,30 +62,28 @@ public class _2108 {
                 cnt++;
             }
 
-            if (max < cnt) {
-                value = i;
-                max = cnt;
-            }
-            // 가장 많이 나타나는 값이 중복되는 경우
-            else if (max == cnt) {
-                arrMin[idx++] = i > 4000 ? -i + 4000 : i;
+            if (cnt < max) continue;
 
+            max = cnt;
+            arrMax[idx++] = i > 4000 ? -i + 4000 : i;
+
+            if (cnt >= 2) {
+                arrMax[idx++] = i > 4000 ? -i + 4000 : i;
                 isEqual = true;
             }
         }
 
-        int[] arrMin2 = new int[idx];  // 최빈값 저장 배열2
-        for (int i = 0; i < arrMin2.length; i++) {
-            arrMin2[i] = arrMin[i];
+        int[] newArr = new int[idx];
+        for (int i = 0; i < idx; i++) {
+            newArr[i] = arrMax[i];
         }
 
-        Arrays.sort(arrMin2);
+        Arrays.sort(newArr);
 
-        // 동일한 횟수가 나온 경우 두 번째로 작은 값을 찾는다.
-        if (isEqual && arrMin2.length > 1) {
-            sb.append(arrMin2[1]).append("\n");
+        if (isEqual) {
+            sb.append(newArr[1]).append("\n");
         } else {
-            sb.append(value == 0 ? arrMin[0] : value).append("\n");
+            sb.append(newArr[0]).append("\n");
         }
 
         // 범위
@@ -116,7 +100,7 @@ public class _2108 {
             range = range1;
         }
         // 최솟값만 양수인 경우는 없음.
-//        else if (twoPlus) {
+//        else if (arr[0] >= 0) {
 //            range = arr[0] - arr[arr.length - 1];
 //        }
         // 둘 다 음수
