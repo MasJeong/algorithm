@@ -10,6 +10,63 @@ import java.util.Arrays;
  */
 public class _2108 {
 
+    /**
+     * 최빈값을 가져오는 메소드
+     * @param arrCounting 카운팅 배열
+     * @return 최빈값 정수
+     */
+    private static int getMode(int[] arrCounting) {
+        // 등장 횟수가 이전 요소와 동일한지 판단여부
+        boolean isEqual = false;
+        // 최빈값 모을 인덱스
+        int idx = 0;
+        int max = 0;
+
+        /*
+        최빈값 : N개의 수들 중 가장 많이 나타나는 값
+        최빈값이 여러개인 경우 두 번째로 작은 값을 출력
+         */
+        int[] arrMax = new int[arrCounting.length];
+
+        for (int i = 0; i < arrCounting.length; i++) {
+            if (arrCounting[i] == 0) continue;
+
+            int cnt = 0;
+
+            while (arrCounting[i]-- > 0) {
+                cnt++;
+            }
+
+            if (cnt < max) continue;
+
+            if (cnt > max) {
+                max = cnt;
+                isEqual = false;
+
+                // 최빈값이 새로 생긴 경우 배열 초기화
+                arrMax = new int[arrCounting.length];
+                idx = 0;
+            } else {
+                isEqual = true;
+            }
+
+            arrMax[idx++] = i > 4000 ? -i + 4000 : i;
+        }
+
+        int[] arrResult = new int[idx];
+        for (int i = 0; i < idx; i++) {
+            arrResult[i] = arrMax[i];
+        }
+
+        Arrays.sort(arrResult);
+
+        if (isEqual && arrResult.length > 1) {
+            return arrResult[1];
+        } else {
+            return arrResult[0];
+        }
+    }
+
     public static void main(String[] args) throws IOException{
         final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         final StringBuilder sb = new StringBuilder();
@@ -24,6 +81,7 @@ public class _2108 {
         final int[] arrCounting = new int[8001];
         double sum = 0;
 
+        // 입력
         for (int i = 0; i < n; i++) {
             int input = Integer.parseInt(br.readLine());
             arr[i] = input;
@@ -46,45 +104,8 @@ public class _2108 {
         Arrays.sort(arr);
         sb.append(arr[arr.length / 2]).append("\n");
 
-        int max = 1;
-        boolean isEqual = false;
-        int idx = 0;
-
-        // TODO 최빈값 구하는 부분 다시 구현해보자
-        int[] arrMax = new int[arrCounting.length];
-
-        for (int i = 0; i < arrCounting.length; i++) {
-            if (arrCounting[i] == 0) continue;
-
-            int cnt = 0;
-
-            while (arrCounting[i]-- > 0) {
-                cnt++;
-            }
-
-            if (cnt < max) continue;
-
-            max = cnt;
-            arrMax[idx++] = i > 4000 ? -i + 4000 : i;
-
-            if (cnt >= 2) {
-                arrMax[idx++] = i > 4000 ? -i + 4000 : i;
-                isEqual = true;
-            }
-        }
-
-        int[] newArr = new int[idx];
-        for (int i = 0; i < idx; i++) {
-            newArr[i] = arrMax[i];
-        }
-
-        Arrays.sort(newArr);
-
-        if (isEqual) {
-            sb.append(newArr[1]).append("\n");
-        } else {
-            sb.append(newArr[0]).append("\n");
-        }
+        // 최빈값
+        sb.append(getMode(arrCounting)).append("\n");
 
         // 범위
         int range = 0;
@@ -99,10 +120,6 @@ public class _2108 {
         else if (arr[arr.length - 1] >= 0) {
             range = range1;
         }
-        // 최솟값만 양수인 경우는 없음.
-//        else if (arr[0] >= 0) {
-//            range = arr[0] - arr[arr.length - 1];
-//        }
         // 둘 다 음수
         else {
             range = range2;
@@ -113,4 +130,5 @@ public class _2108 {
         System.out.println(sb);
         br.close();
     }
+
 }
