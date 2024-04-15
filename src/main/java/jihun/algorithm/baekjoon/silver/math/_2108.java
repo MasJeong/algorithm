@@ -18,8 +18,9 @@ public class _2108 {
     private static int getMode(int[] arrCounting) {
         // 등장 횟수가 이전 요소와 동일한지 판단여부
         boolean isEqual = false;
-        // 최빈값 모을 인덱스
+        // 최빈값을 저장할 배열의 인덱스
         int idx = 0;
+        // 등장 횟수 최대값 체크용 변수
         int max = 0;
 
         /*
@@ -60,7 +61,7 @@ public class _2108 {
 
         Arrays.sort(arrResult);
 
-        if (isEqual && arrResult.length > 1) {
+        if (isEqual && arrMax.length > 1) {
             return arrResult[1];
         } else {
             return arrResult[0];
@@ -108,7 +109,7 @@ public class _2108 {
         sb.append(getMode(arrCounting)).append("\n");
 
         // 범위
-        int range = 0;
+        int range;
         int range1 = arr[arr.length - 1] - arr[0];
         int range2 = arr[arr.length - 1] > arr[0] ? range1 : arr[0] - arr[arr.length - 1];
 
