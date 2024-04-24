@@ -10,36 +10,6 @@ import java.util.StringTokenizer;
  */
 public class _18111 {
 
-//    /**
-//     * 가장 많이 나온 높이 값을 반환한다.
-//     * @param arrCounting 카운팅 배열
-//     * @return 최고 높이값
-//     */
-//    private static int getMaxCountHeight(int[] arrCounting) {
-//        int maxCountHeight = -1;
-//        int idx = -1;
-//
-//        for (int i = 0; i < arrCounting.length; i++) {
-//            if (arrCounting[i] == 0) continue;
-//
-//            int tempCount = 0;
-//            while (arrCounting[i]-- > 0) {
-//                tempCount++;
-//            }
-//
-//            if (tempCount > maxCountHeight) {
-//                maxCountHeight = tempCount;
-//                idx = i;
-//            }
-//        }
-//
-//        if (idx == -1) {
-//            throw new IllegalStateException("index error");
-//        }
-//
-//        return idx;
-//    }
-
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -49,7 +19,8 @@ public class _18111 {
         int m = Integer.parseInt(st.nextToken());
         int b = Integer.parseInt(st.nextToken());
         int[][] arrCraft = new int[n][m];
-        String answer = null;
+        int maxHeight = -1;
+        int minTime = 64000001 * 2;
 
         // 입력
         for(int i = 0; i < n; i++) {
@@ -60,7 +31,6 @@ public class _18111 {
             }
         }
 
-        // TODO 작업중
         for (int i = 0; i < MAX_HEIGHT; i++) {
             // 반복문 종료 조건
             boolean isFinish = true;
@@ -70,36 +40,42 @@ public class _18111 {
             outer:
             for(int j = 0; j < n; j++) {
                 for (int k = 0; k < m; k++) {
-                    if (i == arrCraft[j][k]) continue;
+                    int tempHeight = arrCraft[j][k];
+
+                    if (i == tempHeight) continue;
 
                     // 블록으로 땅을 채워야 하는 경우 (1초)
-                    if (i > arrCraft[j][k]) {
-                        while (i != arrCraft[j][k]) {
+                    if (i > tempHeight) {
+                        while (i != tempHeight) {
                             if(invenCnt == 0) {
                                 isFinish = false;
                                 break outer;
                             }
 
+                            tempHeight++;
                             time++;
                             invenCnt--;
                         }
                     }
                     // 땅 블록을 회수해야 하는 경우 (2초)
                     else {
-                        time += 2;
-                        invenCnt++;
+                        while (i != tempHeight) {
+                            time += 2;
+                            invenCnt++;
+                            tempHeight--;
+                        }
                     }
                 }
             }
 
             // 가장 바깥 반복문 종료 조건
-            if (isFinish) {
-                answer = time + " " + i;
-                break;
+            if (isFinish && (minTime > time)) {
+                maxHeight = Math.max(i, maxHeight);
+                minTime = time;
             }
         }
 
-        System.out.println(answer);
+        System.out.println(minTime + " " + maxHeight);
         br.close();
     }
 }
