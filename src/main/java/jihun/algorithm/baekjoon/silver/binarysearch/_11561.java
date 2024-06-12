@@ -21,7 +21,7 @@ public class _11561 {
             long n = Long.parseLong(br.readLine());
 
             long left = 0;
-            long right = Integer.MAX_VALUE;
+            long right = 1_000_000_000L;
             long result = 0;
 
             while(left <= right) {
@@ -29,9 +29,9 @@ public class _11561 {
                 long sum = mid * (mid + 1) / 2; // 등차수열 합(n * (n + 1) / 2)
 
                 /*
-                    문제 규칙 기준에서 입력 받은 값 n에 대한 등차수열의 합은 n보다 작을 수밖에 없다.
-                    등차수열의 합이 n보다 작을 때를 찾아 해당 값(mid)과 이전 결과값(result) 중 최댓값 출력.
-                    즉, n을 넘지 않는 mid(등차수열 임의 숫자(num))값을 출력한다.
+                문제 규칙 기준에서 입력 받은 값 n에 대한 등차수열의 합은 n보다 작을 수밖에 없다.
+                등차수열의 합이 n보다 작을 때를 찾아 해당 값(mid)과 이전 결과값(result) 중 최댓값 출력.
+                즉, n을 넘지 않는 mid(등차수열 임의 숫자(num))값을 출력한다.
                  */
                 if(sum <= n) {
                     result = Math.max(mid, result);
