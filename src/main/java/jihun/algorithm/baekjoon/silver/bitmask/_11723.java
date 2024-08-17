@@ -1,4 +1,4 @@
-package jihun.algorithm.baekjoon.silver.impl;
+package jihun.algorithm.baekjoon.silver.bitmask;
 
 import java.io.BufferedReader;
 import java.io.IOException;
