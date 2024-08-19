@@ -18,7 +18,7 @@ public class _1003 {
              dp[n][0] = fibonacci(n - 1)[0] + fibonacci(n - 2)[0];
          }
 
-         //n마다 1의 개수를 저장한다.
+         // n마다 1의 개수를 저장한다.
          if (dp[n][1] == null) {
              dp[n][1] = fibonacci(n - 1)[1] + fibonacci(n - 2)[1];
          }
