@@ -9,27 +9,19 @@ import java.io.InputStreamReader;
  */
 public class _1003 {
 
-    static Integer[] dp = new Integer[41];
-    static int cntZero = 0;
-    static int cntOne = 0;
+    static Integer[][] dp;
 
-    static int fibonacci(int n) {
+     static Integer[] fibonacci(int n) {
 
-        if (n == 0) {
-            cntZero++;
-            return 0;
-        }
+         // n마다 0의 개수를 저장한다.
+         if (dp[n][0] == null) {
+             dp[n][0] = fibonacci(n - 1)[0] + fibonacci(n - 2)[0];
+         }
 
-        if (n == 1) {
-            cntOne++;
-            return 1;
-        }
-
-        if(dp[n] != null) {
-            return dp[n];
-        }
-
-        dp[n] = fibonacci(n - 1) + fibonacci(n - 2);
+         //n마다 1의 개수를 저장한다.
+         if (dp[n][1] == null) {
+             dp[n][1] = fibonacci(n - 1)[1] + fibonacci(n - 2)[1];
+         }
 
         return dp[n];
     }
@@ -43,12 +35,20 @@ public class _1003 {
         while (t-- > 0) {
             int n = Integer.parseInt(br.readLine());
 
-            fibonacci(n);
-            sb.append(cntZero).append(" ").append(cntOne).append("\n");
+            /*
+            [0][0] = n이 0일 때, 0 개수
+            [0][1] = n이 0일 때, 1 개수
+            [1][0] = n이 1일 때, 0 개수
+            [1][1] = n이 1일 때, 1 개수
+             */
+            dp = new Integer[41][2];
+            dp[0][0] = 1;
+            dp[0][1] = 0;
+            dp[1][0] = 0;
+            dp[1][1] = 1;
 
-            // 카운트 변수 초기화
-            cntZero = 0;
-            cntOne = 0;
+            fibonacci(n);
+            sb.append(dp[n][0]).append(" ").append(dp[n][1]).append("\n");
         }
 
         System.out.println(sb);
