@@ -32,10 +32,8 @@ public class _30802 {
         int p = Integer.parseInt(st.nextToken());
         int cntT = 0;
 
-        for (int i = 0; i < arrShirt.length; i++) {
-            int bundle = arrShirt[i];
-
-            if(bundle == 0) continue;
+        for (int bundle : arrShirt) {
+            if (bundle == 0) continue;
 
             int div = bundle / t;
 
