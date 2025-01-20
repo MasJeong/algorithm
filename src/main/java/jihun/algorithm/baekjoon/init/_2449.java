@@ -47,20 +47,20 @@ public class _2449 {
 
         st = new StringTokenizer(br.readLine());
 
-        int cntInput = n + 1;
+        int lampLength = n + 1;
 
-        lamp = new int[cntInput];
+        lamp = new int[lampLength];
         int cntNum = 1;
 
         /*
         1. 전구 색상 입력
         2. 색상 변경 시 인접한 숫자는 한 번에 변경되므로 동일한 숫자는 추가 X
          */
-        for(int i = 1; i < cntInput; i++){
+        for(int i = 1; i < lampLength; i++){
             int num = Integer.parseInt(st.nextToken());
 
             if (lamp[i - 1] == num) {
-                cntInput--;
+                lampLength--;
                 i--;
                 continue;
             }
