@@ -16,7 +16,7 @@ import java.util.Scanner;
  * 10. 팀 정렬 (Tim Sort)
  *
  */
-public class InsertionSort {
+public class InsertionSortTest {
 
 	private static final int MAX_LENGTH = 7;
 	
@@ -27,22 +27,22 @@ public class InsertionSort {
 	 * @param size 배열 크기
 	 */
 	private static void insertion(int[] a, int size) {
-		for(int i = 1; i < size; i++) {
+		for (int i = 1; i < size; i++) {
 			int target = a[i];
-			int j = i - 1;
+			int ii = i - 1;
 
 			/*
-			2 3 4 1 5 j = 2
-			2 3 3 4 5 j = 1
-			2 2 3 4 5 j = 0
-			1 2 3 4 5 j = -1
+			3 7 5 4 1 6 2 i = 3, ii = 2
+			3 7 5 5 1 6 2 i = 3, ii = 1
+			3 7 7 5 1 6 2 i = 3, ii = 1
+			3 4 7 5 1 6 2 i = 3, ii = 0
 			 */
-			while(j >= 0 && a[j] > target) {
-				a[j + 1] = a[j];
-				j--;
+			while (ii >= 0 && target < a[ii]) {
+				a[ii + 1] = a[ii];
+				ii--;
 			}
-			
-			a[j + 1] = target;
+
+			a[ii + 1] = target;
 		}
 	}
 	
@@ -53,7 +53,7 @@ public class InsertionSort {
 		
 		System.out.println("수 입력: ");
 		
-		// 입력
+		// 입력 (3 2 5 4 1 6 7)
 		for(int i = 0; i < size; i++) {
 			a[i] = sc.nextInt();
 		}
@@ -61,8 +61,8 @@ public class InsertionSort {
 		insertion(a, size);
 		
 		// 출력
-		for(int i = 0; i < size; i++) {
-			System.out.print(a[i] + " ");
-		}
+        for (int j : a) {
+            System.out.print(j + " ");
+        }
 	}
 }

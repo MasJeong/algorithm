@@ -13,15 +13,20 @@ import java.util.Scanner;
 public class ShellSort {
 
 	private static final int MAX_LENGTH = 10;
-	
-	private final static int[] gap =  
+
+	/** Ciura 시퀀스 (* 2.25 확장) */
+	private static final int[] gap =
 			{ 1, 4, 10, 23, 57, 132, 301, 701, 1750, 3937, 	
 			8858, 19930, 44842, 100894, 227011, 510774,
 			1149241, 2585792, 5818032, 13090572, 29453787, 
-			66271020, 149109795, 335497038, 754868335, 1698453753 };	
-	
-	// 맨 처음 gap을 참조 할 인덱스를 구하는 메소드
-	private static int getGap(int[] a, int size) {
+			66271020, 149109795, 335497038, 754868335, 1698453753 };
+
+	/**
+	 * 맨 처음 gap을 참조 할 인덱스를 구하는 메소드
+	 * @param size 배열 크기
+	 * @return gap index
+	 */
+	private static int getGap(int size) {
 		int index = 0;
 		
 		int len = (int) (size / 2.25);
@@ -35,11 +40,11 @@ public class ShellSort {
 	
 	/**
 	 * 셸 정렬 (오름차순)
-	 * @param a
-	 * @param size
+	 * @param a 배열
+	 * @param size 배열 크기
 	 */
 	private static void shellSort(int[] a, int size) {
-		int index = getGap(a, size);
+		int index = getGap(size);
 		
 		// gap[index] 값부터 gap[0] 까지 반복한다.
 		for(int i = index; i >= 0; i--) {
@@ -75,7 +80,6 @@ public class ShellSort {
 	}
 	
 	public static void main(String[] args) {
-		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int[] a = new int[MAX_LENGTH];
 		
@@ -91,8 +95,8 @@ public class ShellSort {
 		shellSort(a, size);
 		
 		// 출력
-		for(int i = 0; i < size; i++) {
-			System.out.print(a[i] + " ");
-		}
+        for (int i : a) {
+            System.out.print(i + " ");
+        }
 	}
 }

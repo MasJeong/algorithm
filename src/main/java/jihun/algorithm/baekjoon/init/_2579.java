@@ -36,6 +36,8 @@ public class _2579 {
         dp[1] = arr[1];
         dp[2] = arr[1] + arr[2];
 
+        getScore(n);
+
         System.out.println(sb);
         br.close();
     }
