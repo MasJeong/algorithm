@@ -10,9 +10,11 @@ import java.util.Scanner;
  * 4. 간격이 1이 될 때 까지 2번 과정으로 되돌아가며 반복한다.
  *
  */
-public class ShellSort {
+public class ShellSortTest {
 
 	private static final int MAX_LENGTH = 10;
+
+	static int[] a;
 
 	/** Ciura 시퀀스 (* 2.25 확장) */
 	private static final int[] gap =
@@ -23,34 +25,35 @@ public class ShellSort {
 
 	/**
 	 * 맨 처음 gap을 참조 할 인덱스를 구하는 메소드
-	 * @param size 배열 크기
 	 * @return gap index
 	 */
-	private static int getGap(int size) {
+	private static int getGap() {
 		int index = 0;
-		
-		int len = (int) (size / 2.25);
-		
-		while(gap[index] < len) {
+		int len = (int) (a.length / 2.25);
+
+		while (gap[index] < len) {
 			index++;
 		}
-		
+
 		return index;
 	}
 	
 	/**
 	 * 셸 정렬 (오름차순)
-	 * @param a 배열
-	 * @param size 배열 크기
 	 */
-	private static void shellSort(int[] a, int size) {
-		int index = getGap(size);
-		
-		// gap[index] 값부터 gap[0] 까지 반복한다.
-		for(int i = index; i >= 0; i--) {
-			// 서브리스트들에 대해 삽입정렬 실행
-			for(int j = 0; j < gap[i]; j++) {
-				insertionSort(a, size, gap[i], j);
+	private static void shellSort() {
+		int gapIndex = getGap();
+
+		/*
+		3 2 5 1 9 8 4 7 6 0
+		3       9       6
+		  2       8       0
+		    5       4
+		      1       7
+		 */
+		for (int i = gapIndex; i >= 0; i--) {
+			for(int ii = 0; ii < gap[i]; ii++) {
+				insertionSort(gap[i], ii);
 			}
 		}
 	}
@@ -58,41 +61,36 @@ public class ShellSort {
 	/**
 	 * 삽입정렬 (오름차순)
 	 * 두 번째 원소부터 앞에 있는 원소와 비교하여 작으면 앞에 있는 원소를 뒤로 이동한다.
-	 * @param a 배열
-	 * @param size 배열 크기
 	 * @param gapVal gap 배열 값
 	 * @param start 서브리스트 시작 인덱스
 	 */
-	private static void insertionSort(int[] a, int size, int gapVal, int start) {
-		// 부분 배열의 두 번째 원소부터 size까지 반복한다. (gap 값씩 건너띔) 
-		for (int i = start + gapVal; i < size; i += gapVal) {
+	private static void insertionSort(int gapVal, int start) {
+		for (int i = start + gapVal; i < a.length; i+= gapVal) {
 			int target = a[i];
-			int j = i - gapVal;
-			
-			// 타겟 원소가 이전의 원소보다 작을 때 까지 반복
-			while(j >= start && target < a[j]) {
-				a[j + gapVal] = a[j];
-				j -= gapVal;
+			int ii = i - gapVal;
+
+			while (ii >= start && target < a[ii]) {
+				a[ii + gapVal] = a[ii];
+				ii -= gapVal;
 			}
-			
-			a[j + gapVal] = target;
+
+			a[ii + gapVal] = target;
 		}
 	}
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int[] a = new int[MAX_LENGTH];
+		a = new int[MAX_LENGTH];
 		
 		System.out.println("수 입력: ");
-		int size = a.length;
-		
+
 		// 입력
-		for(int i = 0; i < size; i++) {
+		for(int i = 0; i < a.length; i++) {
 			a[i] = sc.nextInt();
 		}
 		
 		// 셸 정렬
-		shellSort(a, size);
+		shellSort();
 		
 		// 출력
         for (int i : a) {
