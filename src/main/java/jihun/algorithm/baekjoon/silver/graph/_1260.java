@@ -1,4 +1,4 @@
-package jihun.algorithm.baekjoon.init;
+package jihun.algorithm.baekjoon.silver.graph;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class _1260 {
      * DFS 구현 - 재귀
      * @param start 시작 노드 번호
      */
-    public static void dfsByRecursion(int start) {
+    private static void dfsByRecursion(int start) {
         visited[start] = true;
         sb.append(start).append(" ");
 
@@ -39,7 +39,7 @@ public class _1260 {
      * DFS 구현 - 스택
      * @param start 시작 노드 번호
      */
-    public static void dfsByStack(int start) {
+    private static void dfsByStack(int start) {
         stack.push(start);
 
         while(!stack.isEmpty()) {
@@ -63,7 +63,7 @@ public class _1260 {
      * BFS 구현 - 큐
      * @param start 시작 노드 번호
      */
-    public static void bfs(int start) {
+    private static void bfs(int start) {
         queue.add(start);
         visited[start] = true;
 
