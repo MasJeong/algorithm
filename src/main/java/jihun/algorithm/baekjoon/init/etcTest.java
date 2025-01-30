@@ -2,18 +2,24 @@ package jihun.algorithm.baekjoon.init;
 
 public class etcTest {
 
-    private static int binarySearch(int[] arr, int num) {
+    /**
+     * 이진 탐색 테스트
+     * @param arr 배열
+     * @param target 찾고자 하는 숫자
+     * @return 찾고자 하는 숫자의 배열 인덱스
+     */
+    private static int binarySearch(int[] arr, int target) {
         int left = 0;
         int right = arr.length - 1;
 
         while (left <= right) {
             int mid = (left + right) >>> 1;
 
-            if (num == arr[mid]) {
+            if (target == arr[mid]) {
                 return mid;
             }
 
-            if (num < arr[mid]) {
+            if (target < arr[mid]) {
                 right = mid - 1;
             } else {
                 left = mid + 1;

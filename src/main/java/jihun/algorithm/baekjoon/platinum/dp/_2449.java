@@ -1,4 +1,4 @@
-package jihun.algorithm.baekjoon.init;
+package jihun.algorithm.baekjoon.platinum.dp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
