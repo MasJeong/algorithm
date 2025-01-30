@@ -1,4 +1,4 @@
-package jihun.algorithm.baekjoon.init;
+package jihun.algorithm.baekjoon.etc;
 
 public class etcTest {
 
