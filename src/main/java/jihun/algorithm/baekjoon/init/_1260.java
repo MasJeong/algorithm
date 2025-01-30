@@ -59,16 +59,20 @@ public class _1260 {
         }
     }
 
+    /**
+     * BFS 구현 - 큐
+     * @param start 시작 노드 번호
+     */
     public static void bfs(int start) {
         queue.add(start);
         visited[start] = true;
 
         while (!queue.isEmpty()) {
-            start = queue.poll();
-            sb.append(start + " ");
+            int node = queue.poll();
+            sb.append(node).append(" ");
 
             for (int i = 1; i <= cntNode; i++) {
-                if (arr[start][i] == 1 && !visited[i]) {
+                if (arr[node][i] == 1 && !visited[i]) {
                     queue.add(i);
                     visited[i] = true;
                 }
@@ -93,6 +97,7 @@ public class _1260 {
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
 
+            // 입력 시 인접행렬 표현
             arr[a][b] = arr[b][a] = 1;
         }
 
