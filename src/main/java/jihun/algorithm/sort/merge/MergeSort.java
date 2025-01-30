@@ -70,18 +70,14 @@ public class MergeSort {
 			 *  왼쪽의 l번째 원소를 새 배열에 넣고 l과 idx를 1 증가시킨다.
 			 */
 			if(a[l] <= a[r]) {
-				sorted[idx] = a[l];
-				idx++;
-				l++;
+				sorted[idx++] = a[l++];
 			}
 			/*
 			 *  오른쪽 부분리스트 r번째 원소가 왼쪽 부분리스트 l번째 원소보다 작거나 같을 경우
 			 *  오른쪽의 r번째 원소를 새 배열에 넣고 r과 idx를 1 증가시킨다.
 			 */
 			else {
-				sorted[idx] = a[r];
-				idx++;
-				r++;
+				sorted[idx++] = a[r++];
 			}
 		}
 
@@ -92,9 +88,7 @@ public class MergeSort {
 		 */
 		if(l > mid) {
 			while(r <= right) {
-				sorted[idx] = a[r];
-				idx++;
-				r++;
+				sorted[idx++] = a[r++];
 			}
 		}
 
@@ -105,9 +99,7 @@ public class MergeSort {
 		 */
 		else {
 			while(l <= mid) {
-				sorted[idx] = a[l];
-				idx++;
-				l++;
+				sorted[idx++] = a[l++];
 			}
 		}
 
